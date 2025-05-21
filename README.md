@@ -14,6 +14,8 @@ Insurance claim data
 
 Note: I haven't implemented an audit trail but the ClaimState enum would be useful if I did.
 
+Note: To improve it's consumability by clients, a good addition to this project would be an OpenAPI (née Swagger) spec. Writing one manually is pretty time consuming, though, so I deferred it while looking around for some support tooling. 
+
 Note: I'm using Records for the data models. One downside of this choice is that most of the JPA implementations I'm aware of only support mutable Java Beans (aka POJOs.) For the purposes of the API, the SQL for persisting state changes shouldn't be terribly complex.
 
 API:
