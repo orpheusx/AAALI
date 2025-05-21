@@ -20,38 +20,38 @@ class ClaimTest extends JsonSerdeSupport {
                     new PolicyHolder(exampleCustomer),
                     ClaimState.RECEIVED);
 
-            String claimJson = """
-                    {
-                      "submittedAt" : 1747781032.082495000,
-                      "id" : "7213f19f-e28d-40a8-856c-c8478bedde61",
-                      "policyId" : "09876543456-4432",
-                      "deceased" : {
-                        "customer" : {
-                          "id" : "f2d8c645-889f-4a98-82eb-d46527c52452",
-                          "surname" : "Stewart",
-                          "givenName" : "Mark",
-                          "streetAddress" : "22 Baker Street, Boston",
-                          "stateOrProvince" : "MA",
-                          "postalCode" : "55555",
-                          "emailAddress" : "bogusemailaddress@gmail.com",
-                          "dob" : [ 1901, 12, 12 ],
-                          "socialInsuranceId" : "123456789"
-                        }
-                      },
-                      "policyHolder" : {
-                        "customer" : {
-                          "id" : "f2d8c645-889f-4a98-82eb-d46527c52452",
-                          "surname" : "Stewart",
-                          "givenName" : "Mark",
-                          "streetAddress" : "22 Baker Street, Boston",
-                          "stateOrProvince" : "MA",
-                          "postalCode" : "55555",
-                          "emailAddress" : "bogusemailaddress@gmail.com",
-                          "dob" : [ 1901, 12, 12 ],
-                          "socialInsuranceId" : "123456789"
-                        }
-                      }
-                    }""";
+//            String claimJson = """
+//                    {
+//                      "submittedAt" : 1747781032.082495000,
+//                      "id" : "7213f19f-e28d-40a8-856c-c8478bedde61",
+//                      "policyId" : "09876543456-4432",
+//                      "deceased" : {
+//                        "customer" : {
+//                          "id" : "f2d8c645-889f-4a98-82eb-d46527c52452",
+//                          "surname" : "Stewart",
+//                          "givenName" : "Mark",
+//                          "streetAddress" : "22 Baker Street, Boston",
+//                          "stateOrProvince" : "MA",
+//                          "postalCode" : "55555",
+//                          "emailAddress" : "bogusemailaddress@gmail.com",
+//                          "dob" : [ 1901, 12, 12 ],
+//                          "socialInsuranceId" : "123456789"
+//                        }
+//                      },
+//                      "policyHolder" : {
+//                        "customer" : {
+//                          "id" : "f2d8c645-889f-4a98-82eb-d46527c52452",
+//                          "surname" : "Stewart",
+//                          "givenName" : "Mark",
+//                          "streetAddress" : "22 Baker Street, Boston",
+//                          "stateOrProvince" : "MA",
+//                          "postalCode" : "55555",
+//                          "emailAddress" : "bogusemailaddress@gmail.com",
+//                          "dob" : [ 1901, 12, 12 ],
+//                          "socialInsuranceId" : "123456789"
+//                        }
+//                      }
+//                    }""";
 
             var asJson = mapper.writeValueAsString(claim);
             //assertEquals(claimJson, asJson);

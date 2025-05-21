@@ -2,9 +2,6 @@ package com.markstewart.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PaymentInfoTest extends JsonSerdeSupport {

@@ -18,7 +18,7 @@ public class DataServer {
     private final Map<UUID, Claim> claimsByClaimId = new HashMap<>();
     private final Map<UUID, List<Claim>> claimsByCustomer =new HashMap<>();
 
-    public synchronized boolean submitClaim(Claim claim) {
+    public synchronized void submitClaim(Claim claim) {
         // Add the claim to both maps...
         if (null != claimsByClaimId.put(claim.id(), claim)) {
             System.out.println("Replacing existing Claim with id, " + claim.id());
@@ -34,7 +34,6 @@ public class DataServer {
         // System.out.println("Current size of claimsByClaimId = " + claimsByClaimId.size());
         // System.out.println("Current size of claimsByCustomer = " + claimsByCustomer.size());
 
-        return true;
     }
 
     public synchronized List<Claim> findClaimsByCustomer(UUID customerId) {

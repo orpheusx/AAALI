@@ -29,7 +29,7 @@ class BeneficiaryTest extends JsonSerdeSupport {
              }""";
 
     @Test
-    public void testSerde() throws JsonProcessingException {
+    public void testSerde() {
         assertDoesNotThrow(() -> {
             Beneficiary beneficiary = new Beneficiary(
                     exampleCustomer, examplePaymentInfo, 100);

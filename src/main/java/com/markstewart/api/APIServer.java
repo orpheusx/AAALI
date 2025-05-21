@@ -73,7 +73,7 @@ public class APIServer {
 
     private static class HealthCheckHandler implements Handler {
         @Override
-        public void handle(ServerRequest req, ServerResponse res) throws Exception {
+        public void handle(ServerRequest req, ServerResponse res) {
             res.header(OK_CONTENT_LEN_HEADER);
             res.header(CONTENT_TYPE_JSON);
             res.header(SERVER_HEADER);
@@ -93,7 +93,7 @@ public class APIServer {
         }
 
         @Override
-        public void handle(ServerRequest req, ServerResponse res) throws Exception {
+        public void handle(ServerRequest req, ServerResponse res) {
             System.out.println("SubmitClaimHandler called");
 
             res.header(OK_CONTENT_LEN_HEADER);
@@ -104,7 +104,7 @@ public class APIServer {
 
             try {
                 final Claim claim = mapper.readValue(json, Claim.class);
-                boolean ok = dataServer.submitClaim(claim);
+                dataServer.submitClaim(claim);
                 res.status(OK_200);
 
             } catch (JsonProcessingException e) {
@@ -130,7 +130,7 @@ public class APIServer {
         }
 
         @Override
-        public void handle(ServerRequest req, ServerResponse res) throws Exception {
+        public void handle(ServerRequest req, ServerResponse res) {
             System.out.println("FindClaimsForCustomerHandler called");
 
             res.header(CONTENT_TYPE_JSON);
@@ -175,7 +175,7 @@ public class APIServer {
         }
 
         @Override
-        public void handle(ServerRequest req, ServerResponse res) throws Exception {
+        public void handle(ServerRequest req, ServerResponse res) {
             System.out.println("UpdateClaimHandler called");
 
             res.header(CONTENT_TYPE_JSON);
@@ -228,7 +228,7 @@ public class APIServer {
         }
 
         @Override
-        public void handle(ServerRequest req, ServerResponse res) throws Exception {
+        public void handle(ServerRequest req, ServerResponse res) {
             System.out.println("FindDuplicateClaimsHandler called");
             res.header(OK_CONTENT_LEN_HEADER);
             res.header(CONTENT_TYPE_JSON);
