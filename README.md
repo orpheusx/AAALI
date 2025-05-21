@@ -25,9 +25,8 @@ To test the API:
 - curl -X GET --verbose http://localhost:8080/dupes?id=...  -H 'Content-Type: application/json'
 
 Examples:
-
-Enter a claim with id 7213f19f-e28d-40a8-856c-c8478bedde61
-
+```
+# Enter a claim with id 7213f19f-e28d-40a8-856c-c8478bedde61
 curl --verbose -X POST http://localhost:8080/create -d '{ "submittedAt" : 1747790875.250820000, "id" : "7213f19f-e28d-40a8-856c-c8478bedde61", "policyId" : "09876543456-4432", "deceased" : { "customer" : { "id" : "f2d8c645-889f-4a98-82eb-d46527c52452", "surname" : "Stewart", "givenName" : "Mark", "streetAddress" : "22 Baker Street, Boston", "stateOrProvince" : "MA", "postalCode" : "55555", "emailAddress" : "bogusemailaddress@gmail.com", "dob" : [ 1921, 12, 23 ], "socialInsuranceId" : "123456789" } }, "policyHolder" : { "customer" : { "id" : "f2d8c645-889f-4a98-82eb-d46527c52452", "surname" : "Stewart", "givenName" : "Mark", "streetAddress" : "22 Baker Street, Boston", "stateOrProvince" : "MA", "postalCode" : "55555", "emailAddress" : "bogusemailaddress@gmail.com", "dob" : [ 1921, 12, 23 ], "socialInsuranceId" : "123456789" } }, "state" : "RECEIVED" }' -H 'Content-Type: application/json'
 
 # Attempt to update the claim status illegally (RECEIVED -> DENIED is not an allowed transition)
@@ -44,24 +43,24 @@ curl -X POST --verbose http://localhost:8080/create -d '{ "submittedAt" : 174779
 
 # Fetch all duplicate claims made against policy id (09876543456-4432) returning an array of claims with the same policy id.
 curl --verbose -X GET "http://localhost:8080/dupes?policyId=09876543456-4432" -H 'Content-Type: application/json'
+```
+
 
 BUILD INSTRUCTIONS:
 
 With Maven 3.9.9+ installed
 
 To run just tests:
-mvn test
+```mvn test```
 
 To run test and, if they pass, build an executable jar file:
-mvn package
+```mvn package```
 
 To run just the executable jar after building it:
-java -jar ./target/AAALIClaimsMgmtAPI-1.0-SNAPSHOT-jar-with-dependencies.jar
-
-With Docker 27.3.1+ installed:
-
-Build image:
-docker build -t aaali:0.1.0 -f Dockerfile .
+```java -jar ./target/AAALIClaimsMgmtAPI-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+With Docker 27.3.1+ installed, build an image:
+```docker build -t aaali:0.1.0 -f Dockerfile .```
 
 To run the resulting image:
-docker run -it --rm --name aaali -p 8080:8080 aaali:0.1.0
+```docker run -it --rm --name aaali -p 8080:8080 aaali:0.1.0```
