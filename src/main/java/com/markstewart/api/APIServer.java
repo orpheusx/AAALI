@@ -37,9 +37,9 @@ public class APIServer {
     final static String UPDATE = "/update";
     final static String DUPES  = "/dupes";
 
-    private final DataServer dataServer = new DataServer(); // not threadsafe but see class comment.
-    private final ObjectMapper mapper = new ObjectMapper()
-            .registerModule(new JavaTimeModule()); // threadsafe
+    private final DataServer dataServer = new DataServer(); // thread-safe but see class comment.
+    private final ObjectMapper mapper = new ObjectMapper()  // thread-safe
+            .registerModule(new JavaTimeModule());
 
     public APIServer(int port) {
 
@@ -162,7 +162,7 @@ public class APIServer {
     }
 
     /**
-     * NOTE: I'm using query params with a PUT to pass the claim id and state here. Since the update
+     * NOTE: I'm using query params with a PUT to pass the claim id and updated state. Since the update
      * is only altering the state it doesn't seem necessary to send the entire resource (claim).
      * Not sure if Roy Fielding would approve but...
      */
@@ -230,14 +230,31 @@ public class APIServer {
         @Override
         public void handle(ServerRequest req, ServerResponse res) {
             System.out.println("FindDuplicateClaimsHandler called");
-            res.header(OK_CONTENT_LEN_HEADER);
+
             res.header(CONTENT_TYPE_JSON);
             res.header(SERVER_HEADER);
 
+            OptionalValue<String> policyId = req.query().first("policyId");
+            if (policyId.isEmpty()) {
+                System.out.println("No policy id parameter specified");
+                res.status(BAD_REQUEST_400);
+                res.send();
+                return;
+            }
 
+            try {
+                // NOTE: an empty set or a set of size 1 indicates no duplicates
+                final List<Claim> duplicateClaims = dataServer.detectDuplicateClaimsForPolicy(policyId.get());
+                System.out.println("Found " + duplicateClaims.size() + " duplicates for policy " + policyId.get());
+                final String duplicatesJson = mapper.writeValueAsString(duplicateClaims);
+                res.status(OK_200);
+                res.send(duplicatesJson.getBytes());
 
-            res.status(OK_200);
-            res.send();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                res.status(INTERNAL_SERVER_ERROR_500);
+                res.send();
+            }
         }
     }
 }

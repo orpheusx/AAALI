@@ -9,7 +9,7 @@ import java.util.UUID;
  *
  * @param submittedAt the timestamp of the initial filing
  * @param id of the claim itself
- * @param policyId using
+ * @param policyId the id of the policy against which the holder is making the claim
  * @param deceased the insured customer
  * @param policyHolder the customer holding the policy (often the same as the deceased)
  */

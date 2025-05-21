@@ -12,24 +12,21 @@ Insurance claim data
     PENDING_REVIEW -> IN_REVIEW -> COMPLETE
 
 
-I haven't implemented an audit trail but the ClaimState enum would be useful
-implement as set of enumerated activity types:
-    RECEIVED, REVIEWED, APPROVED, DENIED, others...
-Notes field
+Note: I haven't implemented an audit trail but the ClaimState enum would be useful if I did.
 
-I'm using Records for the data models. One downside of this choise is that most of the JPA implementations I'm aware of only support mutable Java Beans (aka POJOs.) For the purposes of the API, the SQL for persisting state changes shouldn't be terribly complex.
+Note: I'm using Records for the data models. One downside of this choice is that most of the JPA implementations I'm aware of only support mutable Java Beans (aka POJOs.) For the purposes of the API, the SQL for persisting state changes shouldn't be terribly complex.
 
 API:
 
 To test the API:
-    curl -X POST --verbose http://localhost:8080/create -d '...' -H 'Content-Type: application/json'
-    curl -X GET --verbose http://localhost:8080/find?id=...  -H 'Content-Type: application/json'
-    curl -X PUT --verbose http://localhost:8080/update -d '...' -H 'Content-Type: application/json'
-    curl -X GET --verbose http://localhost:8080/dupes?id=...  -H 'Content-Type: application/json'
+- curl -X POST --verbose http://localhost:8080/create -d '...' -H 'Content-Type: application/json'
+- curl -X GET --verbose http://localhost:8080/find?id=...  -H 'Content-Type: application/json'
+- curl -X PUT --verbose http://localhost:8080/update -d '...' -H 'Content-Type: application/json'
+- curl -X GET --verbose http://localhost:8080/dupes?id=...  -H 'Content-Type: application/json'
 
 Examples:
 
-# Enter a claim with id 7213f19f-e28d-40a8-856c-c8478bedde61
+Enter a claim with id 7213f19f-e28d-40a8-856c-c8478bedde61
 
 curl --verbose -X POST http://localhost:8080/create -d '{ "submittedAt" : 1747790875.250820000, "id" : "7213f19f-e28d-40a8-856c-c8478bedde61", "policyId" : "09876543456-4432", "deceased" : { "customer" : { "id" : "f2d8c645-889f-4a98-82eb-d46527c52452", "surname" : "Stewart", "givenName" : "Mark", "streetAddress" : "22 Baker Street, Boston", "stateOrProvince" : "MA", "postalCode" : "55555", "emailAddress" : "bogusemailaddress@gmail.com", "dob" : [ 1921, 12, 23 ], "socialInsuranceId" : "123456789" } }, "policyHolder" : { "customer" : { "id" : "f2d8c645-889f-4a98-82eb-d46527c52452", "surname" : "Stewart", "givenName" : "Mark", "streetAddress" : "22 Baker Street, Boston", "stateOrProvince" : "MA", "postalCode" : "55555", "emailAddress" : "bogusemailaddress@gmail.com", "dob" : [ 1921, 12, 23 ], "socialInsuranceId" : "123456789" } }, "state" : "RECEIVED" }' -H 'Content-Type: application/json'
 
