@@ -1,0 +1,30 @@
+PART 2
+
+Insurance claim data
+- Policy Number
+- Deceased's full name and address, DOB, optionally SS #
+- Death certificate (represented by the state and certificate number.)
+- Same info for the primary beneficiary plus contact info: phone, email address
+- Payment information? Just bank routing number to simplify.
+- current status used by workflow (related to but distinct from audit trail activities):
+    PENDING_REVIEW -> IN_REVIEW -> COMPLETE
+
+
+Audit Trail
+implement as set of enumerated activity types:
+    RECEIVED, REVIEWED, APPROVED, DENIED, others...
+Notes field
+
+I'm using Records for the data models. One downside to this is that most of the JPA implementations I'm aware of only support mutable Java Beans (aka POJOs.) For the purposes of the API, the SQL for persisting state changes shouldn't be terribly complex.
+
+
+API:
+
+To test the API:
+    curl -X POST --verbose http://localhost:8080/create -d '...' -H 'Content-Type: application/json'
+    curl -X GET --verbose http://localhost:8080/find?id=...  -H 'Content-Type: application/json'
+    curl -X PUT --verbose http://localhost:8080/update -d '...' -H 'Content-Type: application/json'
+    curl -X GET --verbose http://localhost:8080/dupes?id=...  -H 'Content-Type: application/json'
+
+
+curl --verbose -X PUT "http://localhost:8080/update?id=7213f19f-e28d-40a8-856c-c8478bedde61&state=denied" -H 'Content-Type: application/json'
