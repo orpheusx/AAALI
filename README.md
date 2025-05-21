@@ -46,7 +46,7 @@ curl --verbose -X GET "http://localhost:8080/dupes?policyId=09876543456-4432" -H
 ```
 
 
-BUILD INSTRUCTIONS:
+**BUILD INSTRUCTIONS:**
 
 With Maven 3.9.9+ installed
 
@@ -57,7 +57,8 @@ To run test and, if they pass, build an executable jar file:
 ```mvn package```
 
 To run just the executable jar after building it:
-```java -jar ./target/AAALIClaimsMgmtAPI-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+java -jar ./target/AAALIClaimsMgmtAPI-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 With Docker 27.3.1+ installed, build an image:
 ```docker build -t aaali:0.1.0 -f Dockerfile .```
